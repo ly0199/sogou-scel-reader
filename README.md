@@ -1,0 +1,1 @@
+# sogou-scel-reader
