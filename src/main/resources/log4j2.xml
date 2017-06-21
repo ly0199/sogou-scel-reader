@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+    status: 用于设置log4j2自身内部的信息输出，可以不设置，当设置成trace时，会看到log4j2内部各种详细输出
+    monitorInterval:30s log4j2能够自动检测修改配置文件和重新配置本身，设置间隔秒数
+    xmlns="http://logging.apache.org/log4j/2.0/config"
+-->
+<Configuration status="WARN" monitorInterval="30">
+
+    <!-- 可以定义一些常量 -->
+    <Properties>
+        <!-- 配置日志文件输出目录 -->
+        <Property name="LOG_HOME">/usr/local/logs</Property>
+    </Properties>
+
+    <Appenders>
+
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+
+        <!-- 建议buferSize配置，减少频繁写操作-->
+        <!--<NoSql name="MongoAppender" bufferSize="10">
+            &lt;!&ndash;<MongoDb databaseName="movie" collectionName="l_log_data" server="59.110.10.207" port="30000" userName="" password=""/>&ndash;&gt;
+            <MongoDb databaseName="movie" collectionName="l_log_data" server="59.110.10.207" port="30000"/>
+        </NoSql>-->
+
+    </Appenders>
+
+    <!-- 可单独为package路径配置指定的日志输出 -->
+    <Loggers>
+
+        <!-- name:包路径 additivity=false：这样设置将不会把当前输出的日志继续传递到父节点，避免相同日志输出多次 -->
+        <!--  <Logger name="com.wiseweb.trm" level="WARN" additivity="false">
+              <AppenderRef ref="MongoAppender"></AppenderRef>
+          </Logger>-->
+
+        <!--过滤掉一些不需要的日志信息-->
+        <logger name="org.springframework" level="INFO"/>
+        <logger name="org.mongodb" level="WARN"/>
+
+        <!-- 终极父节点，拦截所有请求 -->
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+
+</Configuration>
