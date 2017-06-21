@@ -1,4 +1,4 @@
 # sogou-scel-reader
 
 ### 
-<font color="Red">color=#00ffff</font>
+<font color=Red> 你好 color=#00ffff</font>
